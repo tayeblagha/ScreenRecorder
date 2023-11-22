@@ -43,6 +43,6 @@ for c in charset_0:
             params={"username": username}
     )
     if "This user exists" in r.text:
-            charset_1 += c
-            print ('CSET: ' + charset_1.ljust(len(charset_0), '*'))
+        charset_1 += c
+        print ('CSET: ' + charset_1.ljust(len(charset_0), '*'))
 EOF
